@@ -20,15 +20,19 @@
 ##
 golem::fill_desc(
   pkg_name = "proteinViewer", # The name of the golem package containing the app (typically lowercase, no underscore or periods)
-  pkg_title = "PKG_TITLE", # What the Package Does (One Line, Title Case, No Period)
-  pkg_description = "PKG_DESC.", # What the package does (one paragraph).
+  pkg_title = "Shiny App for Viewing Protein's Expression in Mouse", # What the Package Does (One Line, Title Case, No Period)
+  pkg_description = "The proteinViewer is an app for viewing protein expression
+                     in mouse. A user inputs a protein name and sees how that 
+                     protein is expressed in multiple mouse strains at different
+                     ages. The user has an option to see this expression in a 
+                     specific group of mice (based on sex, age, or strain)", # What the package does (one paragraph).
   authors = person(
-    given = "AUTHOR_FIRST", # Your First Name
-    family = "AUTHOR_LAST", # Your Last Name
-    email = "AUTHOR@MAIL.COM", # Your email
+    given = "Desmond", # Your First Name
+    family = "Frimpong", # Your Last Name
+    email = "desmond.frimpong@colby.edu", # Your email
     role = c("aut", "cre") # Your role (here author/creator)
   ),
-  repo_url = NULL, # The URL of the GitHub repo (optional),
+  repo_url = "https://github.com/al-jisal/proteinViewer.git", # The URL of the GitHub repo (optional),
   pkg_version = "0.0.0.9000", # The version of the package containing the app
   set_options = TRUE # Set the global golem options
 )
@@ -65,7 +69,7 @@ usethis::use_git()
 ## Sets the remote associated with 'name' to 'url'
 usethis::use_git_remote(
   name = "origin",
-  url = "https://github.com/<OWNER>/<REPO>.git"
+  url = "https://github.com/al-jisal/proteinViewer.git"
 )
 
 # You're now set! ----
