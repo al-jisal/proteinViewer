@@ -15,5 +15,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(proteinViewer)
+library(shiny)
+```
+```{r, ui}
+ui <- fluidPage(
+  titlePanel("Protein Viewer"),
+  navbarPage()
+)
 ```
