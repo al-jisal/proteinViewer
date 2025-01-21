@@ -7,10 +7,18 @@
 #' @noRd
 app_ui <- function(request) {
   #################### HEADER ####################
-  header <- dashboardHeader()
+  header <- dashboardHeader(
+    title = "Protein Viewer"
+  )
 
   #################### SIDEBAR ####################
-  sidebar <- dashboardSidebar()
+  sidebar <- dashboardSidebar(
+    accordion(
+      accordion_panel("Sex", varSelectInput(c("male", "female")), selelected = "female"),
+      accordion_panel("Age", varSelectInput(c("young", "old")), selelected = "young"),
+      accordion_panel("Strain", varSelectInput(c("A", "B", "C")), selelected = "A")
+    )
+  )
 
   #################### BODY ####################
   body <- dashboardBody()
@@ -28,7 +36,7 @@ app_ui <- function(request) {
 #' This function is internally used to add external
 #' resources inside the Shiny application.
 #'
-#' @import shiny
+#' @import shiny~
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
