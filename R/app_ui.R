@@ -13,11 +13,12 @@ app_ui <- function(request) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-    accordion(
-      accordion_panel("Sex", varSelectInput(c("male", "female")), selelected = "female"),
-      accordion_panel("Age", varSelectInput(c("young", "old")), selelected = "young"),
-      accordion_panel("Strain", varSelectInput(c("A", "B", "C")), selelected = "A")
-    )
+
+    
+    # use varSelectInput when I have access to the data
+    selectInput("sex", "Sex", c("male", "female"), selected = "male", multiple = TRUE),
+    selectInput("age", "Age", c("young", "old"), selected = "young", multiple = TRUE),
+    selectInput("strain", "Strain", c("A", "B", "C"), selected = "A", multiple = TRUE)
   )
 
   #################### BODY ####################
@@ -36,7 +37,7 @@ app_ui <- function(request) {
 #' This function is internally used to add external
 #' resources inside the Shiny application.
 #'
-#' @import shiny~
+#' @import shiny
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
