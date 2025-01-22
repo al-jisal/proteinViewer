@@ -13,12 +13,15 @@ app_ui <- function(request) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
+    h4("Search for a protein below"),
+    sidebarSearchForm(textId = "search", buttonId = "searchButton", label = "Search..."),
 
-    
     # use varSelectInput when I have access to the data
     selectInput("sex", "Sex", c("male", "female"), selected = "male", multiple = TRUE),
     selectInput("age", "Age", c("young", "old"), selected = "young", multiple = TRUE),
-    selectInput("strain", "Strain", c("A", "B", "C"), selected = "A", multiple = TRUE)
+    selectInput("strain", "Strain", c("A", "B", "C"), selected = "A", multiple = TRUE),
+
+    submitButton("Apply Changes", icon("refresh")) # updates the plot
   )
 
   #################### BODY ####################
