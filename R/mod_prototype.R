@@ -21,11 +21,18 @@ mod_prototype_ui <- function(id) {
     textInput("search", "Protein Name", placeholder = "Search..."),
 
     # use varSelectInput when I have access to the data
-    selectInput("sex", "Sex", c("male", "female"), selected = "male", multiple = TRUE),
-    selectInput("age", "Age", c("young", "old"), selected = "young", multiple = TRUE),
-    selectInput("strain", "Strain", c("A", "B", "C"), selected = "A", multiple = TRUE),
-
-    submitButton("Apply Changes", icon("refresh")) # updates the plot
+    # input area for Sex selection
+    selectInput("sex", "Sex", c("male", "female"),
+                selected = "male", multiple = TRUE),
+    # input area for Age selection
+    selectInput("age", "Age", c("young", "old"),
+                selected = "young", multiple = TRUE),
+    # input area for Strain selection
+    selectInput("strain", "Strain", c("A", "B", "C"),
+                selected = "A", multiple = TRUE),
+    # button to update the plot when the user changes any input(s)
+    actionButton("update", "Apply Changes",
+                 icon("refresh"), class = "btn-success") # updates the plot
   )
 
   #################### BODY ####################
