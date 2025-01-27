@@ -1,12 +1,12 @@
 #' prototype UI Function
 #'
-#' @description A shiny Module.
+#' @description this module is the first prototype of proteinViewer.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @noRd 
 #'
-#' @importFrom shiny NS tagList 
+#' @importFrom shiny NS tagList
 mod_prototype_ui <- function(id) {
   ns <- NS(id)
 
@@ -17,9 +17,8 @@ mod_prototype_ui <- function(id) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-
+    # input area for Protein Name search
     textInput("search", "Protein Name", placeholder = "Search..."),
-
     # use varSelectInput when I have access to the data
     # input area for Sex selection
     selectInput("sex", "Sex", c("male", "female"),
@@ -46,12 +45,12 @@ mod_prototype_ui <- function(id) {
     dashboardPage(header, sidebar, body)
   )
 }
-    
+
 #' prototype Server Functions
 #'
-#' @noRd 
+#' @noRd
 mod_prototype_server <- function(id){
-  moduleServer(id, function(input, output, session){
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     # dummy data serving as a placeholder for the actual data
     proteins <- c("aab", "aaf", "add", "blurr", "blurb", "Can")
@@ -59,7 +58,7 @@ mod_prototype_server <- function(id){
     # return the matched proteins
     filtered_proteins <- reactive({
       search_term <- tolower(input$search)
-      if (length(search_term) == 0){
+      if (length(search_term) == 0) {
         return("") # return all proteins if search term is empty
       }
       matched_proteins <- proteins[grep(search_term, tolower(proteins))]
