@@ -17,8 +17,8 @@ mod_prototype_ui <- function(id) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-    h4("Search for a protein below"),
-    sidebarSearchForm(textId = "search", buttonId = "searchButton", label = "Search..."),
+
+    textInput("search", "Protein Name", placeholder = "Search..."),
 
     # use varSelectInput when I have access to the data
     selectInput("sex", "Sex", c("male", "female"), selected = "male", multiple = TRUE),
