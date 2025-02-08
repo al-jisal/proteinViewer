@@ -1,10 +1,15 @@
+#################### LOAD DATA ####################
+path <- "data/LOAD2.ABCA7_normalizedabundance_withmetadata_proteomics.csv"
+data <- read.csv(path)
+proteins <- data[, 8:ncol(data)] # proteins are columns 8 to the end
+
 #' prototype UI Function
 #'
 #' @description this module is the first prototype of proteinViewer.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
 #' @importFrom shiny NS tagList
 mod_prototype_ui <- function(id) {
@@ -17,18 +22,14 @@ mod_prototype_ui <- function(id) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-    # input area for Protein Name search
-    textInput("search", "Protein Name", placeholder = "Search..."),
-    # use varSelectInput when I have access to the data
+    # input area for Protein Selection
+    varSelectInput("protein", "Protein Name", proteins),
     # input area for Sex selection
-    selectInput("sex", "Sex", c("male", "female"),
-                selected = "male", multiple = TRUE),
+    selectInput("sex", "Sex", c("male", "female")),
     # input area for Age selection
-    selectInput("age", "Age", c("young", "old"),
-                selected = "young", multiple = TRUE),
+    selectInput("age", "Age", c("4", "12", "18", "24")),
     # input area for Strain selection
-    selectInput("strain", "Strain", c("A", "B", "C"),
-                selected = "A", multiple = TRUE),
+    selectInput("strain", "Strain", c("B6", "LOAD2", "LOAD2.ABCA7")),
     # button to update the plot when the user changes any input(s)
     actionButton("update", "Apply Changes",
                  icon("refresh"), class = "btn-success") # updates the plot
@@ -37,7 +38,6 @@ mod_prototype_ui <- function(id) {
   #################### BODY ####################
   body <- dashboardBody(
     h4("Filtered proteins:"),
-    uiOutput(ns("content"))
   )
 
   tagList(
@@ -52,31 +52,10 @@ mod_prototype_ui <- function(id) {
 mod_prototype_server <- function(id){
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    # dummy data serving as a placeholder for the actual data
-    proteins <- c("aab", "aaf", "add", "blurr", "blurb", "Can")
-    # filter the proteins based on the search input
-    # return the matched proteins
-    filtered_proteins <- reactive({
-      search_term <- tolower(input$search)
-      if (length(search_term) == 0) {
-        return("") # return all proteins if search term is empty
-      }
-      matched_proteins <- proteins[grep(search_term, tolower(proteins))]
-      return(matched_proteins)
-    })
-
-    # render the matched proteins
-    output$content <- reactive({
-      if(length(filtered_proteins()) == 0){
-        return("No proteins found")
-      }
-      return(list_to_li(filtered_proteins()))
-    })
   })
 }
 
 ## To be copied in the UI
 # mod_prototype_ui("prototype_1")
-    
 ## To be copied in the server
 # mod_prototype_server("prototype_1")
