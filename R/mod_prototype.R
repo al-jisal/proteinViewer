@@ -4,7 +4,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
 #' @importFrom shiny NS tagList
 mod_prototype_ui <- function(id) {
@@ -77,6 +77,5 @@ mod_prototype_server <- function(id){
 
 ## To be copied in the UI
 # mod_prototype_ui("prototype_1")
-    
 ## To be copied in the server
 # mod_prototype_server("prototype_1")
