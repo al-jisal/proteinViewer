@@ -17,8 +17,9 @@ mod_prototype_ui <- function(id) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-    # input area for Protein Name search
-    textInput("search", "Protein Name", placeholder = "Search..."),
+    # input area for Protein Selection
+    selectInput("protein", "Protein Name", c("A", "B", "C"),
+                selected = "Protein A", multiple = FALSE),
     # use varSelectInput when I have access to the data
     # input area for Sex selection
     selectInput("sex", "Sex", c("male", "female"),
