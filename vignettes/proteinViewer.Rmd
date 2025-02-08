@@ -16,8 +16,7 @@ knitr::opts_chunk$set(
 ```{r, dataExploration}
 
 data <- read.csv("data/LOAD2.ABCA7_normalizedabundance_withmetadata_proteomics.csv")
-column_headers <- colnames(data)
-column_headers <- column_headers[5:length(column_headers)]
-column_headers
+protein_names <- colnames(data)[7:ncol(data)]
+print(length(protein_names))
 
 ```
