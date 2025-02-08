@@ -17,19 +17,16 @@ mod_prototype_ui <- function(id) {
 
   #################### SIDEBAR ####################
   sidebar <- dashboardSidebar(
-    # input area for Protein Selection
-    selectInput("protein", "Protein Name", c("A", "B", "C"),
-                selected = "Protein A", multiple = FALSE),
     # use varSelectInput when I have access to the data
+    # varSelectInput(inputId, label, data, selected = NULL, multiple = FALSE)
+    # input area for Protein Selection
+    varSelectInput("protein", "Protein Name", c("A", "B", "C")),
     # input area for Sex selection
-    selectInput("sex", "Sex", c("male", "female"),
-                selected = "male", multiple = TRUE),
+    varSelectInput("sex", "Sex", c("male", "female"), multiple = TRUE),
     # input area for Age selection
-    selectInput("age", "Age", c("young", "old"),
-                selected = "young", multiple = TRUE),
+    varSelectInput("age", "Age", c("young", "old"), multiple = TRUE),
     # input area for Strain selection
-    selectInput("strain", "Strain", c("A", "B", "C"),
-                selected = "A", multiple = TRUE),
+    varSelectInput("strain", "Strain", c("A", "B", "C"), multiple = TRUE),
     # button to update the plot when the user changes any input(s)
     actionButton("update", "Apply Changes",
                  icon("refresh"), class = "btn-success") # updates the plot
