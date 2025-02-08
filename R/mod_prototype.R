@@ -52,26 +52,6 @@ mod_prototype_ui <- function(id) {
 mod_prototype_server <- function(id){
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    # dummy data serving as a placeholder for the actual data
-    proteins <- c("aab", "aaf", "add", "blurr", "blurb", "Can")
-    # filter the proteins based on the search input
-    # return the matched proteins
-    filtered_proteins <- reactive({
-      search_term <- tolower(input$search)
-      if (length(search_term) == 0) {
-        return("") # return all proteins if search term is empty
-      }
-      matched_proteins <- proteins[grep(search_term, tolower(proteins))]
-      return(matched_proteins)
-    })
-
-    # render the matched proteins
-    output$content <- reactive({
-      if(length(filtered_proteins()) == 0){
-        return("No proteins found")
-      }
-      return(list_to_li(filtered_proteins()))
-    })
   })
 }
 
