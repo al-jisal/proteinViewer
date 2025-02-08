@@ -13,13 +13,11 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+```{r, dataExploration}
 
-```{r setup}
-library(shiny)
-```
-```{r, ui}
-ui <- fluidPage(
-  titlePanel("Protein Viewer"),
-  navbarPage()
-)
+data <- read.csv("data/LOAD2.ABCA7_normalizedabundance_withmetadata_proteomics.csv")
+column_headers <- colnames(data)
+column_headers <- column_headers[5:length(column_headers)]
+column_headers
+
 ```
