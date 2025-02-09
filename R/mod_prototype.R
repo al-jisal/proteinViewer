@@ -1,4 +1,4 @@
-#################### LOAD DATA ####################
+# ---------------------------- LOAD DATA ---------------------------------------
 path <- "data/LOAD2.ABCA7_normalizedabundance_withmetadata_proteomics.csv"
 data <- read.csv(path)
 proteins <- data[, 8:ncol(data)] # proteins are columns 8 to the end
@@ -15,12 +15,12 @@ proteins <- data[, 8:ncol(data)] # proteins are columns 8 to the end
 mod_prototype_ui <- function(id) {
   ns <- NS(id)
 
-  #################### HEADER ####################
+  # ---------------------------- HEADER ----------------------------------------
   header <- dashboardHeader(
     title = "Protein Viewer"
   )
 
-  #################### SIDEBAR ####################
+  # ---------------------------- SIDEBAR ---------------------------------------
   sidebar <- dashboardSidebar(
     # input area for Protein Selection
     varSelectInput("protein", "Protein Name", proteins),
@@ -31,13 +31,14 @@ mod_prototype_ui <- function(id) {
     # input area for Strain selection
     selectInput("strain", "Strain", c("B6", "LOAD2", "LOAD2.ABCA7")),
     # button to update the plot when the user changes any input(s)
-    actionButton("update", "Apply Changes",
+    actionButton("update", "Apply Changes", width = "87%",
                  icon("refresh"), class = "btn-success") # updates the plot
   )
 
-  #################### BODY ####################
+  # ---------------------------- BODY ------------------------------------------
   body <- dashboardBody(
     h4("Filtered proteins:"),
+    plotOutput("boxplot")
   )
 
   tagList(
@@ -49,11 +50,37 @@ mod_prototype_ui <- function(id) {
 #' prototype Server Functions
 #'
 #' @noRd
-mod_prototype_server <- function(id){
+mod_prototype_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    # Reactive dataset triggered only when the "Apply Changes" button is pressed
+    filtered_data <- eventReactive(input$update, {
+      req(input$protein)  # Ensure a protein is selected
+
+      data %>%
+        filter(Sex == input$sex, 
+               Age == as.numeric(input$age), 
+               Cohort == input$strain) %>%
+        select(Cohort, all_of(input$protein))  # Include Cohort for x-axis
+    })
+
+    # Render the box plot
+    output$boxplot <- renderPlot({
+      req(filtered_data())  # Ensure data is available
+
+      ggplot(filtered_data(), aes(x = Cohort, y = .data[[input$protein]])) +
+        geom_boxplot(fill = "skyblue", color = "black") +
+        labs(title = paste("Expression of", input$protein),
+             x = "Strain",
+             y = "Expression Level") +
+        theme_minimal()
+    })
+
   })
 }
+
+
 
 ## To be copied in the UI
 # mod_prototype_ui("prototype_1")
